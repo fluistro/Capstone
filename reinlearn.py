@@ -8,15 +8,15 @@ import json
 
 # create X and y
 
-with open('boards.json', 'r') as f:
+with open('boards_large_set.json', 'r') as f:
     data = json.load(f)
-    
+
 x_start = []
 y_start = []
 x_end = []
 y_end = []
 
-for n in range(len(data['board'])):
+for n in range(500000):
     
     board = data['board'][n]
     board_info = []
@@ -51,9 +51,9 @@ X_train, X_test, y_train, y_test = train_test_split(x_start, y_start, test_size=
 
 classifier_start = Sequential()
 #First Hidden Layer
-classifier_start.add(Dense(512, activation='relu', kernel_initializer='random_normal', input_dim=833)) # change input_dim
+classifier_start.add(Dense(256, activation='relu', kernel_initializer='random_normal', input_dim=833)) # change input_dim
 #Second  Hidden Layer
-classifier_start.add(Dense(256, activation='relu', kernel_initializer='random_normal'))
+classifier_start.add(Dense(128, activation='relu', kernel_initializer='random_normal'))
 #Output Layer
 classifier_start.add(Dense(64, activation='softmax', kernel_initializer='random_normal'))
 
@@ -61,7 +61,7 @@ classifier_start.add(Dense(64, activation='softmax', kernel_initializer='random_
 classifier_start.compile(optimizer ='adam',loss='categorical_crossentropy', metrics =['accuracy'])
 
 #Fitting the data to the training dataset
-classifier_start.fit(X_train,y_train, batch_size=10, epochs=50)
+classifier_start.fit(X_train,y_train, batch_size=10, epochs=20)
 
 
 # network 2: get ending square from board and starting square    
@@ -70,9 +70,9 @@ X_train, X_test2, y_train, y_test2 = train_test_split(x_end, y_end, test_size=0.
 
 classifier_end = Sequential()
 #First Hidden Layer
-classifier_end.add(Dense(512, activation='relu', kernel_initializer='random_normal', input_dim=897)) # change input_dim
+classifier_end.add(Dense(256, activation='relu', kernel_initializer='random_normal', input_dim=897)) # change input_dim
 #Second  Hidden Layer
-classifier_end.add(Dense(256, activation='relu', kernel_initializer='random_normal'))
+classifier_end.add(Dense(128, activation='relu', kernel_initializer='random_normal'))
 #Output Layer
 classifier_end.add(Dense(64, activation='softmax', kernel_initializer='random_normal'))
 
@@ -80,13 +80,13 @@ classifier_end.add(Dense(64, activation='softmax', kernel_initializer='random_no
 classifier_end.compile(optimizer ='adam',loss='categorical_crossentropy', metrics =['accuracy'])
 
 #Fitting the data to the training dataset
-classifier_end.fit(X_train,y_train, batch_size=10, epochs=50)
+classifier_end.fit(X_train,y_train, batch_size=10, epochs=20)
 
 
 # evaluation
 
-classifier_start.save("start_net")
-classifier_end.save("end_net")
+classifier_start.save("start_net_bigset")
+classifier_end.save("end_net_bigset")
 
 eval_model=classifier_start.evaluate(X_test, y_test)
 eval_model

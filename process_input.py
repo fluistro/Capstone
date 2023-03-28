@@ -132,7 +132,7 @@ for i in range(1000):
         print(game)
 
 j = {'board' : boards, 'start' : start_squares, 'end' : end_squares}
-f = open("boards.json", "w")
+f = open("boards_large_set.json", "w")
 json.dump(j, f)
 
 print("Done")

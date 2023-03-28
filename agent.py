@@ -2,8 +2,8 @@ import keras
 import numpy as np
 import chess
 
-start_model = keras.models.load_model('start_net')
-end_model = keras.models.load_model('end_net')
+start_model = keras.models.load_model('start_net_bigset')
+end_model = keras.models.load_model('end_net_bigset')
 
 print('models loaded')
 print(start_model.summary())
@@ -158,10 +158,13 @@ if (colour == 0):
             print("invalid move, try again")
             continue
         
+        if board.is_checkmate():
+            break
+        
         engine_move = get_move(board)
         print(engine_move)
         
-    print("The winner is: " + board.outcome().winner)
+    print(board.outcome().result())
         
 else:
     
@@ -177,6 +180,6 @@ else:
             print("invalid move, try again")
             continue
         
-    print("The winner is: " + board.outcome().winner)
+    print(board.outcome().result())
     
 print("Thank you for playing")

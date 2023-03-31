@@ -39,8 +39,8 @@ if difficulty == 0:
 else:
     
     if difficulty == 1:
-        start_model = keras.models.load_model('start_net_bigset')
-        end_model = keras.models.load_model('end_net_bigset')
+        start_model = keras.models.load_model('start_net')
+        end_model = keras.models.load_model('end_net')
     else:
         start_model = keras.models.load_model('start_net_bigset')
         end_model = keras.models.load_model('end_net_bigset')

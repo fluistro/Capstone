@@ -173,12 +173,17 @@ else:
         engine_move = get_move(board)
         print(engine_move)
         
-        try:
-            player_move = input()
-            board.push_san(player_move)
-        except:
-            print("invalid move, try again")
-            continue
+        if board.is_checkmate():
+            break
+        
+        while True:
+            try:
+                player_move = input()
+                board.push_san(player_move)
+                break
+            except:
+                print("invalid move, try again")
+                continue
         
     print(board.outcome().result())
     
